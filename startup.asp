@@ -12,9 +12,6 @@ if not isempty(session("project")) then
     end with
     close json
 end if
-with sqlguard
-    .scan
-end with
 with html
     .textareaiseditor = true
     .errormessages db.errors

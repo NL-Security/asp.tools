@@ -38,7 +38,6 @@ function ConvertToList(p_data)
     data_array = split(p_data, ",")
     for i = 0 to UBound(data_array)
         if data_array(i) <> "" then
-            test data_array(i)
             result.add trim(data_array(i))
         end if
     next
