@@ -10,7 +10,7 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 area_name = appservice.virtual_area(request.QueryString("area"))
 %>
 <%="<!--#include virtual=""startup.asp""-->" %><%=vblf %>
-<%=vbstart %>
+<%=vbenc %>
 view("title") = strings("<%=pluralize(table_name) %>")
 set <%=table_name %> = db.entity("<%=table_name %>").where("<%=primaryKey("COLUMN_NAME") %> = " & http.querystring("<%=primaryKey("COLUMN_NAME") %>")).first
 if request.servervariables("request_method") = "POST" then
@@ -33,7 +33,7 @@ end if
     </div>
 </div>
 <%="<!--#include virtual=""/views/_shared/footer.asp""-->" %><%=vbcrlf %>
-<%=vbstart %>
+<%=vbenc %>
 close <%=table_name %><%=vbcrlf %>
 <%=vbend %>
 <% set primaryKey = nothing %>

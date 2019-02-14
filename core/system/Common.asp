@@ -19,9 +19,9 @@ function debugend()
 end function
 %>
 <%
-public function vbstart() vbstart = "<% " end function
+public function vbenc() vbenc = "<% " end function
 public function vbend() vbend = " %" & ">" end function
-public function vbwrite() vbwrite = "<%=" end function
+public function vbwr() vbwr = "<%=" end function
 %>
 <%
 public function Pluralize(p_value)
