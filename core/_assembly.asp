@@ -1,0 +1,15 @@
+﻿<!--#include virtual="/Core/Cookies/_Assembly.asp"-->
+<!--#include virtual="/Core/Cryptography/_Assembly.asp"-->
+<!--#include virtual="/Core/Data/_Assembly.asp"-->
+<!--#include virtual="/Core/Debugging/_Assembly.asp"-->
+<!--#include virtual="/Core/Files/_Assembly.asp"-->
+<!--#include virtual="/Core/Globalization/_Assembly.asp"-->
+<!--#include virtual="/Core/Http/_Assembly.asp"-->
+<!--#include virtual="/Core/Html/_Assembly.asp"-->
+<!--#include virtual="/Core/Json/_Assembly.asp"-->
+<!--#include virtual="/Core/Logging/_Assembly.asp"-->
+<!--#include virtual="/Core/Messaging/_Assembly.asp"-->
+<!--#include virtual="/Core/Resources/_Assembly.asp"-->
+<!--#include virtual="/Core/Scaffolding/_Assembly.asp"-->
+<!--#include virtual="/Core/Security/_Assembly.asp"-->
+<!--#include virtual="/Core/System/_Assembly.asp"-->

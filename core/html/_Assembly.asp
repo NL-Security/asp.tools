@@ -1,0 +1,13 @@
+﻿<!--#include virtual="/Core/Html/HtmlAnchor.asp"-->
+<!--#include virtual="/Core/Html/HtmlAntiForgeryToken.asp"-->
+<!--#include virtual="/Core/Html/HtmlBuilder.asp"-->
+<!--#include virtual="/Core/Html/HtmlList.asp"-->
+<!--#include virtual="/Core/Html/HtmlInput.asp"-->
+<!--#include virtual="/Core/Html/HtmlElement.asp"-->
+<!--#include virtual="/Core/Html/HtmlEditor.asp"-->
+<!--#include virtual="/Core/Html/HtmlSpan.asp"-->
+<!--#include virtual="/Core/Html/htmltable.asp"-->
+<!--#include virtual="/Core/Html/htmltableFooter.asp"-->
+<!--#include virtual="/Core/Html/HtmlTextarea.asp"-->
+<!--#include virtual="/Core/Html/HtmlVar.asp"-->
+<% set html = new htmlbuilder %>

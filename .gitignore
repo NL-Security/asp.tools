@@ -1,0 +1,5 @@
+.vs/
+app_data/
+*.webinfo
+*.publishproj
+*.sqllite

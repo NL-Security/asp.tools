@@ -1,0 +1,296 @@
+﻿body {
+    font-size: 13px !important;
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, body, input, select, textarea {
+    font-family: 'Roboto', 'Segoe UI';
+}
+
+dt, label {
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+th {
+    font-weight: normal;
+}
+
+    th a {
+        text-decoration: none;
+    }
+
+.w3-input, .w3-select {
+    padding: 4px 6px;
+}
+
+.w3-select {
+    padding: 5px 6px;
+}
+
+.w3-hoverable tbody tr:hover, .w3-hoverable tbody tr.active {
+    cursor: pointer;
+    background-color: black !important;
+}
+
+.w3-hoverable tbody tr .fa-check-circle {
+    display: none !important;
+}
+
+.w3-hoverable tbody tr:hover .fa-check-circle, .w3-hoverable tbody tr.active .fa-check-circle {
+    display: inline !important;
+}
+
+hr {
+    margin-top: 0em;
+    margin-bottom: 0.5em;
+    height: 1px;
+    border-top: 1px solid #ccc;
+}
+
+.w3-card-4 > header {
+    font-weight: bold;
+}
+
+w3-pointer {
+    cursor: pointer;
+}
+
+.w3-uppercase {
+    text-transform: uppercase;
+}
+
+header .w3-button {
+    padding: 1em 8px;
+}
+
+
+table th .w3-btn, table th .w3-button {
+    padding: 4px 16px;
+}
+
+.w3-wrapper .cke_wysiwyg_frame, .w3-wrapper .cke_contents, .w3-wrapper .cke_editable {
+    height: 600px !important;
+}
+
+.w3-card-4 > header {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+    .w3-card-4 > header > p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+.w3-card-4 > div > p {
+    margin-top: 5px;
+}
+
+.w3-main > .w3-row {
+    padding: 8px 16px;
+}
+
+.w3-row.w3-padding {
+    padding: 8px !important;
+}
+
+    .w3-row.w3-padding.w3-dashboard {
+        padding: 8px !important;
+        padding-top: 16px !important;
+    }
+
+.w3-row > .w3-bar {
+    padding-top: 8px;
+}
+
+.w3-column {
+    padding: 0 8px;
+}
+
+.fa-dots:after {
+    content: '\2807';
+    font-size: 100px;
+}
+
+td .w3-check {
+    width: 16px;
+    height: 16px;
+    top: 4px;
+}
+
+table td .w3-btn, table td .w3-button {
+    padding: 2px 16px;
+    outline: none;
+}
+
+.w3-separator {
+    margin-top: 0.5em;
+}
+
+.w3-input, select, textarea, button, input {
+    outline: none;
+}
+
+    select.w3-input {
+        padding: 5px 8px
+    }
+
+.w3-dropdown-hover:first-child, .w3-dropdown-click:hover, .w3-dropdown-hover:hover:first-child {
+    background-color: transparent !important;
+}
+
+.w3-dropdown-click:first-child, .w3-dropdown-hover:hover {
+    background-color: transparent !important;
+}
+
+.w3-nowrap {
+    white-space: nowrap;
+}
+
+.w3-wauto {
+    width: auto;
+}
+
+.w3-width-auto {
+    width: auto;
+}
+
+.w3-inline-block {
+    display: inline-block
+}
+
+.w3-table thead th {
+    font-weight: bold;
+}
+
+.ck-content {
+    height: 400px !important;
+}
+
+.w3-padding-left {
+    padding-left: 16px;
+}
+
+.w3-uppercase option {
+    text-transform: capitalize;
+}
+
+img {
+    width: 100%;
+    height: auto,
+}
+
+.w3-25p {
+    width: 25% !important
+}
+
+
+table .w3-dropdown-content.w3-bar-block, .w3-card-4 .w3-dropdown-content.w3-bar-block {
+    top: 0;
+    right: 0;
+}
+
+
+.w3-col:first-child {
+    padding: 0 8px;
+}
+
+.w3-col:nth-child(1) {
+    padding: 0 8px;
+}
+
+.w3-col {
+    padding: 0 8px;
+}
+
+.w3-dropdown-content .w3-bar-item:hover {
+    color: #000 !important;
+    background-color: #fff !important
+}
+
+
+.w3-table th, .w3-table td {
+    border-right: 1px solid #eee !important;
+}
+
+    .w3-table td:last-child, .w3-table td:last-child {
+        border-right: none !important;
+    }
+
+.w3-card-4 header .w3-button {
+    padding: 5px 16px;
+}
+
+.w3-button, .w3-btn {
+    font-weight: normal;
+}
+
+.w3-card-4 header {
+    padding: 0.01em 8px;
+}
+
+@media(max-width: 468px) {
+    .w3-bar-item.w3-left {
+        font-size: 15px !important;
+    }
+
+        .w3-bar-item.w3-left .w3-text-blue {
+            font-size: 12px !important;
+        }
+}
+
+li {
+    list-style-type: none;
+}
+
+.w3-table td, .w3-table th, .w3-table-all td, .w3-table-all th {
+    padding: 8px 8px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.w3-check, .w3-radio {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 3px;
+}
+
+.w3-table th, .w3-table td {
+    border-right: 0 !important
+}
+
+.w3-bordered tr, .w3-table-all tr {
+    border-bottom: 1px solid #333;
+}
+
+.w3-btn.w3-primary {
+    border-radius: 2px;
+    background-color: hsla(206, 100%, 35%, 1);
+    color: hsla(0, 0%, 100%, 0.998);
+    border-width: 1px;
+    justify-content: center;
+    padding: calc(.375em - 1px) .75em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+header.w3-container.w3-primary {
+    border-radius: 2px 2px 2px 0;
+    background-color: hsla(206, 100%, 35%, 1);
+    color: hsla(0, 0%, 100%, 0.998);
+    border-width: 1px;
+    justify-content: center;
+    padding: calc(.375em - 1px) .75em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.w3-card-4 header .w3-button, .w3-card-4 header .w3-btn {
+    padding: 4px 16px;
+}

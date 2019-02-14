@@ -1,0 +1,29 @@
+{
+  "ApplicationName": "ASPCore",
+  "AuthorizationErrorPage": "Home/AuthorizationError",
+  "DefaultCulture": "fr-FR",
+  "Profiles": [
+    {
+      "name": "production",
+      "type": "production",
+      "applicationUrl": "http://aspcore.security.fr/",
+      "environnementVariables": {}
+    },
+    {
+      "name": "development",
+      "type": "development",
+      "applicationUrl": "http://localhost:63611/",
+      "environnementVariables": {}
+    }
+  ],
+  "SQL": {
+    "Host": "10.250.250.100",
+    "MasterUID": "sa",
+    "MasterPassword": "2017.S4curiTY"
+  },
+  "Styles": {
+    "Input": "w3-input w3-border",
+    "Button": "w3-btn",
+    "Hide": "w3-hide"
+  }
+}
