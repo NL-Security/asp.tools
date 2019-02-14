@@ -19,7 +19,7 @@ end if
         </tr>
         <% writer.Enclose("end with") %>
         <tr class="w3-light-gray"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
-            <th><%=db.writehtmlform(columns, false) %></th><% end if %><% columns.MoveNext %><% loop %>
+            <th><%=schemaservice.writehtmlform(columns, false) %></th><% end if %><% columns.MoveNext %><% loop %>
             <th>
                 <% writer.Write("html.hidden(""page"").value(http.querystring(""page""))") %><%=vblf %>
                 <%=vbtab %><%=vbtab %><%=vbtab %><%=vbtab %><% writer.Write("html.hidden(""order"").value(http.querystring(""order""))") %><%=vblf %>
@@ -30,8 +30,8 @@ end if
     <tbody>
         <% columns.MoveFirst %>
         <% writer.Enclose("do while not " & Pluralize(table_name) & ".eof") %>
-        <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & LCase(primKey) & "="" & " & Pluralize(table_name) & "(""" & LCase(primKey) & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
-            <td><% writer.Write(db.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
+        <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & LCase(primaryKey("COLUMN_NAME")) & "="" & " & Pluralize(table_name) & "(""" & LCase(primaryKey("COLUMN_NAME")) & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
+            <td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
             <td></td>
         </tr>
         <% writer.Enclose(Pluralize(table_name) & ".movenext") %><%=vblf %>

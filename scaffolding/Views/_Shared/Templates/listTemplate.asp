@@ -29,8 +29,8 @@ end if
         <tbody>
             <% columns.MoveFirst %>
             <% writer.Enclose("do while not " & Pluralize(table_name) & ".eof") %>
-            <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & primKey & "="" & " & Pluralize(table_name) & "(""" & primKey & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
-                <td><% writer.Write(db.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
+            <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & primaryKey("COLUMN_NAME") & "="" & " & Pluralize(table_name) & "(""" & primaryKey("COLUMN_NAME") & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
+                <td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
                 <td></td>
             </tr>
             <% writer.Enclose(Pluralize(table_name) & ".movenext") %><%=vbcrlf %>
