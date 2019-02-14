@@ -11,7 +11,7 @@ if request.QueryString("area") <> "" then
     requested_area_virtual = "/Areas/" & request.QueryString("area")
 end if
 %><div class="w3-card-4">
-    <header class="w3-container w3-theme">
+    <header class="w3-container w3-theme-d4">
         <p>
             <a href="/<%=foreignKeys("FK_TABLE_NAME") %>/create?<%=primaryKey("COLUMN_NAME") %>=<%=writer.write("http.querystring(""" & primaryKey("COLUMN_NAME") & """)") %>" title="<%=writer.write("strings(""create"")") %>" class="w3-right"><i class="fa fa-plus"></i></a>
             <%=Writer.Write("strings(""" & pluralize(foreignKeys("FK_TABLE_NAME")) & """)") %>

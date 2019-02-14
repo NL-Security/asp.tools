@@ -9,7 +9,7 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 %>
 <%=vbstart %>with resources.localize("<%=table_name %>")<%=vbend %>
 <div class="w3-card-4">
-    <header class="w3-container w3-theme">
+    <header class="w3-container w3-theme-d4">
         <p><%=vbwrite %>strings("general")<%=vbend %></p>
     </header>
     <div class="w3-container"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %><%=vblf %>

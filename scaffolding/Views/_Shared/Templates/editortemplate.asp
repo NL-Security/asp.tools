@@ -8,7 +8,7 @@ set columns = schemaservice.GetColumns(table_name)
 set primaryKey = schemaservice.GetPrimaryKey(table_name)
 set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 %><div class="w3-card-4">
-    <header class="w3-container w3-theme">
+    <header class="w3-container w3-theme-d4">
         <p><% writer.Write("strings(""general"")") %></p>
     </header>
     <div class="w3-container">
