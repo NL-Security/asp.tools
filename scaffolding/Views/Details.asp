@@ -11,7 +11,7 @@ area_name = appservice.virtual_area(request.QueryString("area"))
 <%="<!--#include virtual=""startup.asp""-->" %><%=vblf %>
 <%=vbenc %>
 view("title") = strings("<%=writer.pluralize(table_name) %>")
-set <%=table_name %> = db.entity("<%=table_name %>").where("<%=lcase(primaryKey("COLUMN_NAME")) %> = " & http.querystring("<%=lcase(primaryKey("COLUMN_NAME")) %>"))<%=schemaservice.sqljoin(table_name) %>.first
+set <%=table_name %> = db.entity("<%=table_name %>").where("<%=lcase(primaryKey("COLUMN_NAME")) %> = " & http.querystring("<%=lcase(primaryKey("COLUMN_NAME")) %>"))<%=schemaservice.sqljoin(table_name, true) %>.first
 <%=vbend & vblf %>
 <%="<!--#include virtual=""" & area_name & "/views/_shared/header.asp""-->" %>
 <div class="w3-row">
@@ -32,7 +32,7 @@ set <%=table_name %> = db.entity("<%=table_name %>").where("<%=lcase(primaryKey(
     </div>
     <div class="w3-col m9">
         <% set foreignKeys = schemaservice.GetForeignKeys(table_name, "PK") : do while not foreignKeys.EOF %>
-        <%=writer.Start %>set <%=writer.Pluralize(foreignKeys("FK_TABLE_NAME")) %> = db.entity("<%=foreignKeys("FK_TABLE_NAME") %>").where("<%=foreignKeys("FK_COLUMN_NAME") %> = " & <%=table_name %>("<%=lcase(primaryKey("COLUMN_NAME")) %>"))<%=schemaservice.sqljoin(foreignKeys("FK_TABLE_NAME")) %>.list<%=writer.Terminate %>
+        <%=writer.Start %>set <%=writer.Pluralize(foreignKeys("FK_TABLE_NAME")) %> = db.entity("<%=foreignKeys("FK_TABLE_NAME") %>").where("<%=foreignKeys("FK_COLUMN_NAME") %> = " & <%=table_name %>("<%=lcase(primaryKey("COLUMN_NAME")) %>"))<%=schemaservice.sqljoin(foreignKeys("FK_TABLE_NAME"), true) %>.list<%=writer.Terminate %>
         <%=vblf & vbtab & vbtab %><%="<!--#include virtual=""" & area_name & "/views/_shared/templates/" & foreignKeys("FK_TABLE_NAME") & "/listtemplate.asp""-->" %>
         <%=vblf & vbtab & vbtab %><%=writer.Start %>close <%=writer.pluralize(foreignKeys("FK_TABLE_NAME")) %><%=writer.terminate %><% foreignKeys.MoveNext %><% if not foreignkeys.eof then %><%=vblf & vbtab & vbtab %><% end if %><% loop : set foreignKeys = Nothing %>
     </div>

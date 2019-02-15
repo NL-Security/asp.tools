@@ -57,13 +57,6 @@ class appservicebase
             if request.Form("resources_assembly") = "1" then
                 CreateResourcesAssembly session("project") & "/", request.Form("models")
             end if
-            if request.Form("repositories") = "1" then
-                CreateRepositories session("project") & "/", request.Form("models"), empty
-                CreateRepositoriesAssembly session("project") & "/", request.Form("models")
-            end if
-            if request.Form("navigation") = "1" then
-                CreateNavigationLinks session("project") & "/views/_shared", request.Form("models")
-            end if
         end if
         with ViewData
             .Add "title", "Controllers"
@@ -176,16 +169,16 @@ class appservicebase
             if ArrayContains(p_Models, tables("Table_Name").Value) then
                 table_name = LCase(tables("Table_Name").Value)
                 if fileSystem.FileExists(p_Path) then
-                    set file = fileSystem.OpenTextFile(p_Path & "/" & tables("Table_Name").Value & ".asp", true)
+                    set file = fileSystem.OpenTextFile(p_Path & "/" & lcase(tables("Table_Name").Value) & ".asp", true)
                 else
-                    set file = fileSystem.CreateTextFile(p_Path & "/" & tables("Table_Name").Value & ".asp", true)
+                    set file = fileSystem.CreateTextFile(p_Path & "/" & lcase(tables("Table_Name").Value) & ".asp", true)
                 end if
                 file.WriteLine "<%"
                 file.WriteLine "resources.addcatalog ""fr"", """ & table_name & """"
                 file.WriteLine "with resources.Item(""fr"")(""" & table_name & """)"
                 set columns = schemaservice.GetColumns(table_name)
                 do while not columns.EOF
-                    file.WriteLine vbtab & ".add """ & columns("Column_Name") & """, """ & columns("Column_Name") & """"
+                    file.WriteLine vbtab & ".add """ & lcase(columns("Column_Name")) & """, """ & lcase(columns("Column_Name")) & """"
                     columns.MoveNext
                 loop
                 set columns = nothing

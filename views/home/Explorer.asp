@@ -1,6 +1,5 @@
 ﻿<!--#include virtual="/startup.asp"-->
 <%
-set controller = (new SchemaController).Explorer()
 set db = App.ApplicationServices.GetService("IDb")
 %>
 <!--#include virtual="/views/_shared/header.asp"-->

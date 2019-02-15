@@ -96,24 +96,6 @@ set tables = schemaservice.gettables(empty)
                             <input type="checkbox" id="checkbox_Resources" name="resources" value="1" class="w3-hide" />
                         </td>
                     </tr>
-                    <tr class="table_name <% if request.Form("navigation") = "1" then %>active<% end if %>" id="Navigation">
-                        <td><span>Navigation</span>
-                            <i id="icon_Navigation" class="fas fa-check-circle w3-margin-left w3-text-green w3-hide"></i>
-                            <input type="checkbox" id="checkbox_Navigation" name="navigation" value="1" class="w3-hide" />
-                        </td>
-                    </tr>
-                    <tr class="table_name <% if request.Form("repositories") = "1" then %>active<% end if %>" id="Repositories">
-                        <td><span>Repositories</span>
-                            <i id="icon_Repositories" class="fas fa-check-circle w3-margin-left w3-text-green w3-hide"></i>
-                            <input type="checkbox" id="checkbox_Repositories" name="repositories" value="1" class="w3-hide" />
-                        </td>
-                    </tr>
-                    <tr class="table_name <% if request.Form("resources_assembly") = "1" then %>active<% end if %>" id="resources_assembly">
-                        <td><span>Models Resources</span>
-                            <i id="icon_resources_assembly" class="fas fa-check-circle w3-margin-left w3-text-green w3-hide"></i>
-                            <input type="checkbox" id="checkbox_resources_assembly" name="resources_assembly" value="1" class="w3-hide" />
-                        </td>
-                    </tr>
                 </table>
             </div>
             <br />

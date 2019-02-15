@@ -20,15 +20,19 @@ class schemaservicebase
     end function
     
     'Join
-    public function sqljoin(p_tablename)
-         dim foreignKeys
-         sqljoin = empty 
-         set foreignKeys = getforeignkeys(p_tablename, "FK")
-         do while not foreignKeys.eof 
-         sqljoin = sqljoin & ".join(""" & lcase(foreignKeys("PK_TABLE_NAME")) & " on " & lcase(foreignKeys("PK_COLUMN_NAME")) & " = " & lcase(foreignKeys("FK_COLUMN_NAME")) & """)" 
-         foreignKeys.movenext 
-         loop 
-         set foreignKeys = nothing
+    public function sqljoin(p_tablename, p_strict)
+        dim foreignKeys
+        sqljoin = empty 
+        set foreignKeys = getforeignkeys(p_tablename, "FK")
+        do while not foreignKeys.eof
+        if p_strict then
+            sqljoin = sqljoin & ".join(""" & lcase(foreignKeys("PK_TABLE_NAME")) & " on " & lcase(foreignKeys("PK_TABLE_NAME")) & "." & lcase(foreignKeys("PK_COLUMN_NAME")) & " = " & lcase(foreignKeys("FK_TABLE_NAME")) & "." & lcase(foreignKeys("FK_COLUMN_NAME")) & """)" 
+        else
+            sqljoin = sqljoin & ".join(""" & lcase(foreignKeys("PK_TABLE_NAME")) & " on " & lcase(foreignKeys("PK_COLUMN_NAME")) & " = " & lcase(foreignKeys("FK_COLUMN_NAME")) & """)" 
+        end if
+        foreignKeys.movenext 
+        loop 
+        set foreignKeys = nothing
     end function
 
     'GetModels

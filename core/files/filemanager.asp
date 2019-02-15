@@ -20,6 +20,7 @@ class filemanager
 
     public function TryCreatePath(p_Path)
         dim index
+        p_Path = lcase(p_Path)
      
         if Right(p_Path, 1) <> "\" then p_Path = p_Path & "\" 
         if Left(p_Path, 2) = "\\" then 

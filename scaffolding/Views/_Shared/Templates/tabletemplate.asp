@@ -13,13 +13,17 @@ end if
 %><table class="w3-table-all w3-hoverable">
     <thead>
         <% writer.Enclose("with resources.localize(""" & LCase(table_name) & """)") %>
-        <tr class="w3-theme"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <th><% writer.Write("html.tableheader(""" & LCase(lcase(columns("Column_Name"))) & """).label(.item(""" & LCase(lcase(columns("Column_Name"))) & """))") %></th><% end if %><% columns.MoveNext %><% loop %><% columns.MoveFirst %>
+        <tr class="w3-theme">
+            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><th><% writer.Write("html.tableheader(""" & LCase(lcase(columns("Column_Name"))) & """).label(.item(""" & LCase(lcase(columns("Column_Name"))) & """))") %></th><%=vbenc %>end if<%=vbend %><%=vblf %><% end if %><% columns.MoveNext %><% loop %><% columns.MoveFirst %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
             <th></th>
         </tr>
         <% writer.Enclose("end with") %>
-        <tr class="w3-light-gray"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <th><%=schemaservice.writehtmlform(columns, false) %></th><% end if %><% columns.MoveNext %><% loop %>
+        <tr class="w3-light-gray">
+            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><th><%=schemaservice.writehtmlform(columns, false) %></th><%=vbenc %>end if<%=vbend %><%=vblf %><% end if %><% columns.MoveNext %><% loop %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
             <th>
                 <% writer.Write("html.hidden(""page"").value(http.querystring(""page""))") %><%=vblf %>
                 <%=vbtab %><%=vbtab %><%=vbtab %><%=vbtab %><% writer.Write("html.hidden(""order"").value(http.querystring(""order""))") %><%=vblf %>
@@ -29,13 +33,16 @@ end if
     </thead>
     <tbody>
         <% columns.MoveFirst %>
-        <% writer.Enclose("do while not " & Pluralize(table_name) & ".eof") %>
-        <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & LCase(lcase(primaryKey("COLUMN_NAME"))) & "="" & " & Pluralize(table_name) & "(""" & LCase(lcase(primaryKey("COLUMN_NAME"))) & """)") %>'"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
+        <%=vbenc %>for i = 1 to <%=pluralize(table_name) %>.pagesize<%=vbend %><%=vblf %>
+        <%=vbtab %><%=vbtab %><%=vbenc %>if <%=pluralize(table_name) %>.eof then exit for<%=vbend %>
+        <tr <%=vbwr %><%=pluralize(table_name) %>.onrowclick<%=vbend %>>
+            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><%=vbenc %>end if<%=vbend %><%=vbcrlf %><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
+            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
             <td></td>
         </tr>
-        <% writer.Enclose(Pluralize(table_name) & ".movenext") %><%=vblf %>
-        <%=vbtab %><%=vbtab %><% writer.Enclose("loop") %>
+        <%=vbenc %><%=pluralize(table_name) %>.movenext<%=vbend %><%=vblf %>
+        <%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
     </tbody>
 </table>
 <% writer.Enclose("html.tablefooter(" & Pluralize(table_name) & ")") %>
