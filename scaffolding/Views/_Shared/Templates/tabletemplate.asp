@@ -13,12 +13,12 @@ end if
 %><table class="w3-table-all w3-hoverable">
     <thead>
         <% writer.Enclose("with resources.localize(""" & LCase(table_name) & """)") %>
-        <tr class="w3-theme"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
-            <th><% writer.Write("html.tableheader(""" & LCase(columns("Column_Name")) & """).label(.item(""" & LCase(columns("Column_Name")) & """))") %></th><% end if %><% columns.MoveNext %><% loop %><% columns.MoveFirst %>
+        <tr class="w3-theme"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
+            <th><% writer.Write("html.tableheader(""" & LCase(lcase(columns("Column_Name"))) & """).label(.item(""" & LCase(lcase(columns("Column_Name"))) & """))") %></th><% end if %><% columns.MoveNext %><% loop %><% columns.MoveFirst %>
             <th></th>
         </tr>
         <% writer.Enclose("end with") %>
-        <tr class="w3-light-gray"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
+        <tr class="w3-light-gray"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
             <th><%=schemaservice.writehtmlform(columns, false) %></th><% end if %><% columns.MoveNext %><% loop %>
             <th>
                 <% writer.Write("html.hidden(""page"").value(http.querystring(""page""))") %><%=vblf %>
@@ -30,7 +30,7 @@ end if
     <tbody>
         <% columns.MoveFirst %>
         <% writer.Enclose("do while not " & Pluralize(table_name) & ".eof") %>
-        <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & LCase(primaryKey("COLUMN_NAME")) & "="" & " & Pluralize(table_name) & "(""" & LCase(primaryKey("COLUMN_NAME")) & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
+        <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & LCase(lcase(primaryKey("COLUMN_NAME"))) & "="" & " & Pluralize(table_name) & "(""" & LCase(lcase(primaryKey("COLUMN_NAME"))) & """)") %>'"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
             <td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
             <td></td>
         </tr>

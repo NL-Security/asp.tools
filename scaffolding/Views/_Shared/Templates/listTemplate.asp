@@ -13,15 +13,15 @@ end if
 %><div class="w3-card-4">
     <header class="w3-container w3-theme-d4">
         <p>
-            <a href="/<%=foreignKeys("FK_TABLE_NAME") %>/create?<%=primaryKey("COLUMN_NAME") %>=<%=writer.write("http.querystring(""" & primaryKey("COLUMN_NAME") & """)") %>" title="<%=writer.write("strings(""create"")") %>" class="w3-right"><i class="fa fa-plus"></i></a>
-            <%=Writer.Write("strings(""" & pluralize(foreignKeys("FK_TABLE_NAME")) & """)") %>
+            <a href="/<%=table_name %>/create?<%=lcase(primaryKey("COLUMN_NAME")) %>=<%=writer.write("http.querystring(""" & lcase(primaryKey("COLUMN_NAME")) & """)") %>" title="<%=writer.write("strings(""create"")") %>" class="w3-right"><i class="fa fa-plus"></i></a>
+            <%=vbwr %>strings("<%=pluralize(table_name) %>")<%=vbend %>
         </p>
     </header>
     <table class="w3-table-all w3-hoverable">
         <% writer.Enclose("with resources.localize(""" & LCase(table_name) & """)") %>
         <thead>
-            <tr class="w3-theme"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
-                <th><% writer.Write(".item(""" & columns("Column_Name") & """)") %></th><% end if %><% columns.MoveNext %><% loop %>
+            <tr class="w3-theme"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
+                <th><% writer.Write(".item(""" & lcase(columns("Column_Name")) & """)") %></th><% end if %><% columns.MoveNext %><% loop %>
                 <th></th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@ end if
         <tbody>
             <% columns.MoveFirst %>
             <% writer.Enclose("do while not " & Pluralize(table_name) & ".eof") %>
-            <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & primaryKey("COLUMN_NAME") & "="" & " & Pluralize(table_name) & "(""" & primaryKey("COLUMN_NAME") & """)") %>'"><% do while not columns.EOF %><% if primaryKey("COLUMN_NAME") <> columns("Column_Name") then %>
+            <tr onclick="location.href='<% writer.Write("""" & requested_area & "/" & table_name & "/details?" & lcase(primaryKey("COLUMN_NAME")) & "="" & " & Pluralize(table_name) & "(""" & lcase(primaryKey("COLUMN_NAME")) & """)") %>'"><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
                 <td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
                 <td></td>
             </tr>

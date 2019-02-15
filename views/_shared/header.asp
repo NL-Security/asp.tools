@@ -30,7 +30,7 @@
             <% if files.FolderExists(session("project") & "/areas") then %>
             <% set folder = files.GetFolder(session("project") & "/areas") %>
             <% for each subfolder in folder.SubFolders %>
-            <a href="/Project/Index?area=<%=subfolder.Name %>" class="w3-bar-item w3-btn <% if Router.IsActive("Project/Index") then %>w3-black<% end if %>"><%=subfolder.Name %></a>
+            <a href="/home/project?area=<%=subfolder.Name %>" class="w3-bar-item w3-btn"><%=subfolder.Name %></a>
             <% next %>
             <% close folder %>
             <% end if %>

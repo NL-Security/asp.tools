@@ -9,7 +9,7 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 area_name = appservice.virtual_area(request.QueryString("area"))
 %>
 <%="<!--#include virtual=""startup.asp""-->" %><%=vblf %>
-<%="<!--#include virtual=""/views/_shared/header.asp""-->" %>
+<%="<!--#include virtual=""" & area_name & "/views/_shared/header.asp""-->" %>
 <%=writer.Start %>
 view("title") = strings("<%=pluralize(table_name) %>")
 <%=writer.Terminate %>
@@ -27,4 +27,4 @@ view("title") = strings("<%=pluralize(table_name) %>")
         </div>
     </div>
 </div>
-<%="<!--#include virtual=""/views/_shared/footer.asp""-->" %>
+<%="<!--#include virtual=""" & area_name & "/views/_shared/footer.asp""-->" %>

@@ -152,7 +152,12 @@ class schemaservicebase
                         result = "html.text(""" & column_name & """)"
                     end if
                 case adBoolean
-                    result = "html.checklist(""" & column_name & """).first(2)"
+                    result = "html.checklist(""" & column_name & """)"
+                    if p_withlabel then
+                        result = result & ".choose"
+                    else
+                        result = result & ".all"
+                    end if
                 case adInteger, adNumeric
                     result = "html.number(""" & column_name & """)"
                 case adDouble, adSingle

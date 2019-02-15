@@ -14,10 +14,18 @@ class appservicebase
         set writer = new ASPWriter
 	end sub
 
-    public function virtual_area(p_area)
+    public function real_area(p_area)
         p_area = empty
         if not isempty(p_area) and p_area <> "" then
+            real_area = LCase("/areas/" & p_area)
+        end if
+    end function
+
+    public function virtual_area(p_area)
+        if not isempty(p_area) and p_area <> "" then
             virtual_area = LCase("/areas/" & p_area)
+        else
+            virtual_area = empty
         end if
     end function
 
