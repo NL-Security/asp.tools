@@ -25,7 +25,7 @@ class schemaservicebase
          sqljoin = empty 
          set foreignKeys = getforeignkeys(p_tablename, "FK")
          do while not foreignKeys.eof 
-         sqljoin = sqljoin & ".join(""" & foreignKeys("PK_TABLE_NAME") & " on " & foreignKeys("PK_COLUMN_NAME") & " = " & foreignKeys("FK_COLUMN_NAME") & """)" 
+         sqljoin = sqljoin & ".join(""" & lcase(foreignKeys("PK_TABLE_NAME")) & " on " & lcase(foreignKeys("PK_COLUMN_NAME")) & " = " & lcase(foreignKeys("FK_COLUMN_NAME")) & """)" 
          foreignKeys.movenext 
          loop 
          set foreignKeys = nothing
@@ -59,7 +59,7 @@ class schemaservicebase
 	public function GetNamingColumn(columns)
         do while not columns.EOF
             if columns("Data_Type") = 130 then
-                GetNamingColumn = columns("column_name")
+                GetNamingColumn = lcase(columns("column_name"))
                 columns.MoveFirst
                 exit function
             end if
@@ -89,7 +89,7 @@ class schemaservicebase
                 set cols = GetColumns(CStr(foreignKeys("PK_TABLE_NAME")))
                 namingColumn = GetNamingColumn(cols)
                 if IsEmpty(namingColumn) then
-                    namingColumn = foreignKeys("FK_COLUMN_NAME")
+                    namingColumn = lcase(foreignKeys("FK_COLUMN_NAME"))
                 end if
                 set cols = nothing
                 exit for
@@ -98,7 +98,7 @@ class schemaservicebase
         next
         if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst
         if not IsEmpty(namingColumn) then
-            result = "format.text(" & p_Recordset & "(""" & LCase(namingColumn) & """)" & ")"
+            result = "format.text(" & lcase(p_Recordset) & "(""" & LCase(namingColumn) & """)" & ")"
         else
             field_value = p_Recordset & "(""" & LCase(p_Columns("Column_Name")) & """)"
             select case p_Columns("DATA_TYPE")
