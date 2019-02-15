@@ -25,7 +25,7 @@ class schemaservicebase
          sqljoin = empty 
          set foreignKeys = getforeignkeys(p_tablename, "FK")
          do while not foreignKeys.eof 
-         sqljoin = sqljoin & ".join(""" & foreignKeys("PK_COLUMN_NAME") & " = " & foreignKeys("FK_COLUMN_NAME") & """)" 
+         sqljoin = sqljoin & ".join(""" & foreignKeys("PK_TABLE_NAME") & " on " & foreignKeys("PK_COLUMN_NAME") & " = " & foreignKeys("FK_COLUMN_NAME") & """)" 
          foreignKeys.movenext 
          loop 
          set foreignKeys = nothing
