@@ -28,7 +28,7 @@ class SQLGuardian
             IsBlack = false
             exit function
         end if
-        p_String = LCase(p_String)
+        p_String = lcase(p_String)
   
         for each black in m_BlackList
             if (InStr(p_String, black) <> 0) then

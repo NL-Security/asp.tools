@@ -20,8 +20,8 @@ class ResourceManager
     end function
 
     public function AddCatalog(p_Prefix, p_Key)
-        if not m_Resources(p_Prefix).Exists(LCase(p_Key)) then
-            m_Resources(p_Prefix).Add LCase(p_Key), server.CreateObject("scripting.dictionary")
+        if not m_Resources(p_Prefix).Exists(lcase(p_Key)) then
+            m_Resources(p_Prefix).Add lcase(p_Key), server.CreateObject("scripting.dictionary")
         end if
         set AddCatalog = me
     end function
@@ -37,11 +37,11 @@ class ResourceManager
     end function
 
     public function Localize(p_Catalog)
-        set Localize = (new ResourceCatalog).Resources(m_Resources(m_Prefix)(LCase(p_Catalog)))
+        set Localize = (new ResourceCatalog).Resources(m_Resources(m_Prefix)(lcase(p_Catalog)))
     end function
 
     public function Exists(p_Prefix, p_Key)
-        Exists = m_Resources(p_Prefix).Exists(LCase(p_Key))
+        Exists = m_Resources(p_Prefix).Exists(lcase(p_Key))
     end function
 
 end class

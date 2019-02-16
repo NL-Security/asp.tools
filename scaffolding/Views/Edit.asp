@@ -8,22 +8,22 @@ set primaryKey = schemaservice.GetPrimaryKey(table_name)
 set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 area_name = appservice.virtual_area(request.QueryString("area"))
 %>
-<%="<!--#include virtual=""startup.asp""-->" %><%=vblf %>
-<%=vbenc %>
+<%="<!--#include virtual=""startup.asp""-->" %>
+[
 view("title") = strings("<%=pluralize(table_name) %>")
-set <%=table_name %> = db.entity("<%=table_name %>").where("<%=lcase(primaryKey("COLUMN_NAME")) %> = " & http.querystring("<%=lcase(primaryKey("COLUMN_NAME")) %>")).first
+set <%=table_name %> = db.entity("<%=table_name %>").query("<%=lcase(primaryKey("column_name")) %> = " & http.querystring("<%=lcase(primaryKey("column_name")) %>"))
 if request.servervariables("request_method") = "POST" then
 	if db.entity("<%=table_name %>").automap(<%=table_name %>, http.forms) then
         <%=table_name %>.update
-		action "details?<%=lcase(primaryKey("COLUMN_NAME")) %>=" & <%=table_name %>("<%=lcase(primaryKey("COLUMN_NAME")) %>")
+		action "details?<%=lcase(primaryKey("column_name")) %>=" & <%=table_name %>("<%=lcase(primaryKey("column_name")) %>")
 	end if
 end if
-<%=vbend & vblf %>
+]
 <%="<!--#include virtual=""" & area_name & "/views/_shared/header.asp""-->" %>
 <div class="w3-row">
     <div class="w3-bar">
-        <%=Writer.Write("html.navitem(""details?" & lcase(primaryKey("COLUMN_NAME")) & "="" & " & table_name & "(""" & lcase(primaryKey("COLUMN_NAME")) & """)).label(strings(""" & table_name & """)).css(""w3-theme"")") %><%=vbcrlf %>
-        <%=vbtab %><%=vbtab %><%=Writer.Write("html.triggeritem(""save"").label(strings(""save"")).css(""w3-theme"")") %>
+        [=html.navitem("details?<%=lcase(primaryKey("column_name")) %>=" & http.querystring("<%=lcase(primaryKey("column_name")) %>")).label(strings("<%=table_name %>")).css("w3-theme") ]
+        [=html.triggeritem("save").label(strings("save")).css("w3-theme") ]
     </div>
 </div>
 <div class="w3-row w3-padding">
@@ -31,8 +31,5 @@ end if
         <%="<!--#include virtual=""" & area_name & "/views/_shared/templates/" & table_name & "/editortemplate.asp""-->" %>
     </div>
 </div>
-<%="<!--#include virtual=""" & area_name & "/views/_shared/footer.asp""-->" %><%=vbcrlf %>
-<%=vbenc %>
-close <%=table_name %><%=vbcrlf %>
-<%=vbend %>
-<% set primaryKey = nothing %>
+<%="<!--#include virtual=""" & area_name & "/views/_shared/footer.asp""-->" %>
+[ close <%=table_name %> ]

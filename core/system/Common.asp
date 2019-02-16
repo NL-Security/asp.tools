@@ -19,19 +19,20 @@ function debugend()
 end function
 %>
 <%
+public function vbp() vbp = "%" end function
 public function vbenc() vbenc = "<% " end function
 public function vbend() vbend = " %" & ">" end function
 public function vbwr() vbwr = "<%=" end function
 %>
 <%
-public function Pluralize(p_value)
+public function pluralize(p_value)
     if right(p_Value, 1) = "y" then
         p_Value = Left(p_value, Len(p_Value) - 1) & "ie"
     elseif right(p_Value, 1) = "s" then
-        Pluralize = p_Value
+        pluralize = p_Value
         exit function
     end if
-    Pluralize = p_value & "s"
+    pluralize = p_value & "s"
 end function
 function ConvertToList(p_data)
     set result = server.CreateObject("system.collections.arraylist")

@@ -21,10 +21,10 @@ class HttpRoute
         start_index = 3
         script_array = Split(request.ServerVariables("SCRIPT_NAME"), "/")
         if UBound(script_array) > 3 then
-            m_Area = LCase(script_array(2))
+            m_Area = lcase(script_array(2))
         end if
-        m_Action = Replace(LCase(script_array(UBound(script_array))), ".asp", "")
-        m_Controller = Replace(LCase(script_array(UBound(script_array) - 1)), ".asp", "")
+        m_Action = Replace(lcase(script_array(UBound(script_array))), ".asp", "")
+        m_Controller = Replace(lcase(script_array(UBound(script_array) - 1)), ".asp", "")
         m_Route = m_Area & "/" & m_Controller & "/" & m_Action
     end sub
 

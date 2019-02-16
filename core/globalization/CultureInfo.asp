@@ -64,7 +64,7 @@ class CultureInfo
 
     public property get Prefix()
         if IsEmpty(m_Prefix) then
-            m_Prefix = LCase(m_TwoLetterISOLanguageName)
+            m_Prefix = lcase(m_TwoLetterISOLanguageName)
         end if
         Prefix = m_Prefix
     end property

@@ -31,7 +31,7 @@ if ObjFSO.FolderExists(BaseFile) then
                ' name
                i__Name = file.name
                ' extension
-               i__Ext = LCase(Mid(i__Name, InStrRev(i__Name, ".", -1, 1) + 1))
+               i__Ext = lcase(Mid(i__Name, InStrRev(i__Name, ".", -1, 1) + 1))
                Html = Html + "<li class=""file ext_"&i__Ext&""">"&_
                                          "<a href=""#"" rel="""+(BaseFileDir+i__Name)+""">"&_
                                          (i__name)+"</a></li>"&VBCRLF

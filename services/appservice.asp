@@ -15,126 +15,19 @@ class appservicebase
 	end sub
 
     public function real_area(p_area)
-        p_area = empty
-        if not isempty(p_area) and p_area <> "" then
-            real_area = LCase("/areas/" & p_area)
+        if p_area <> "" then
+            real_area = lcase("/" & p_area)
+        else
+            real_area = empty
         end if
     end function
 
     public function virtual_area(p_area)
         if not isempty(p_area) and p_area <> "" then
-            virtual_area = LCase("/areas/" & p_area)
+            virtual_area = lcase("/areas/" & p_area)
         else
             virtual_area = empty
         end if
-    end function
-
-    'Index
-    public function Index()
-        if session("project") = "" then
-            response.Redirect "/home/index"
-        end if
-		if request.ServerVariables("request_method") = "POST" then
-            dim path
-            scaffolding_directory = session("project")
-            if request.QueryString("area") <> "" then
-                scaffolding_directory = scaffolding_directory & "\Areas\" & request.QueryString("area")
-            end if
-            scaffolding_directory = LCase(scaffolding_directory)
-            if request.Form("controllers") = "1" then
-                CreateControllers scaffolding_directory, request.Form("models"), "View", true
-                CreateControllersAssembly scaffolding_directory & "/", request.Form("models")
-            end if
-            if request.Form("views") = "1" then
-                CreateViews scaffolding_directory, request.Form("models"), empty
-            end if
-            if request.Form("templates") = "1" then
-                CreateTemplates scaffolding_directory, request.Form("models"), empty
-            end if
-            if request.Form("resources") = "1" then
-                CreateResources session("project") & "/Resources/models", request.Form("models")
-            end if
-            if request.Form("resources_assembly") = "1" then
-                CreateResourcesAssembly session("project") & "/", request.Form("models")
-            end if
-        end if
-        with ViewData
-            .Add "title", "Controllers"
-            .Add "header", "Controllers"
-            .Add "Tables", schemaservice.GetTables(empty)
-            .Add "logs", m_Logs
-        end with
-        set Index = me
-    end function
-
-    'Resources
-    public function Resources()
-		if request.ServerVariables("request_method") = "POST" then
-            CreateResources session("project") & "/Resources/models", request.Form("models")
-        end if
-        with ViewData
-            .Add "title", "Resources"
-            .Add "header", "Resources"
-            .Add "Tables", schemaservice.GetModels(empty)
-            .Add "logs", m_Logs
-        end with
-        set Resources = me
-    end function
-
-    'Navigation
-    public function Navigation()
-		if request.ServerVariables("request_method") = "POST" then
-            CreateNavigationLinks session("project") & "/views/_shared", request.Form("models")
-        end if
-        with ViewData
-            .Add "title", "Navigation"
-            .Add "header", "Navigation"
-            .Add "Tables", schemaservice.GetTables(empty)
-            .Add "logs", m_Logs
-        end with
-        set Navigation = me
-    end function
-    
-    'Controllers
-    public function Controllers()
-		if request.ServerVariables("request_method") = "POST" then
-            CreateControllers session("project") & "/", request.Form("models"), "View", true
-        end if
-        with ViewData
-            .Add "title", "Controllers"
-            .Add "header", "Controllers"
-            .Add "Tables", schemaservice.GetTables(empty)
-            .Add "logs", m_Logs
-        end with
-        set Controllers = me
-    end function
-    
-    'Views
-    public function Views()
-		if request.ServerVariables("request_method") = "POST" then
-            CreateViews session("project"), request.Form("models"), empty
-        end if
-        with ViewData
-            .Add "title", "Views"
-            .Add "header", "Views"
-            .Add "Tables", schemaservice.GetTables(empty)
-            .Add "logs", m_Logs
-        end with
-        set Views = me
-    end function
-    
-    'Templates
-    public function Templates()
-		if request.ServerVariables("request_method") = "POST" then
-            CreateTemplates session("project"), request.Form("models"), empty
-        end if
-        with ViewData
-            .Add "title", "Templates"
-            .Add "header", "Templates"
-            .Add "Tables", schemaservice.GetTables(empty)
-            .Add "logs", m_Logs
-        end with
-        set Templates = me
     end function
 
     'CreateNavigationLinks
@@ -147,13 +40,11 @@ class appservicebase
         set tables = schemaservice.GetTables(empty)
         do while not tables.eof
             m_Logs.add tables("Table_Name").Value, empty
-            'if ArrayContains(p_Models, CStr(tables("Table_Name").Value)) then
-                table_name = LCase(tables("Table_Name").Value)
-                if table_name <> "sysdiagrams" then
-                    string_builder = "<%=html.navitem(""/" & table_name & """).label(strings(""" & Pluralize(table_name) & """)).tostring" &  " %" & ">"
-                    file.WriteLine string_builder
-                end if
-            'end if
+            table_name = lcase(tables("Table_Name").Value)
+            if table_name <> "sysdiagrams" then
+                string_builder = "<%=html.navitem(""" & real_area(request.QueryString("area")) & "/" & table_name & """).label(strings(""" & pluralize(table_name) & """)).tostring" &  " %" & ">"
+                file.WriteLine string_builder
+            end if
             tables.MoveNext
         loop
         tables.Close
@@ -167,7 +58,7 @@ class appservicebase
         set tables = schemaservice.GetModels(empty)
         do while not tables.EOF
             if ArrayContains(p_Models, tables("Table_Name").Value) then
-                table_name = LCase(tables("Table_Name").Value)
+                table_name = lcase(tables("Table_Name").Value)
                 if fileSystem.FileExists(p_Path) then
                     set file = fileSystem.OpenTextFile(p_Path & "/" & lcase(tables("Table_Name").Value) & ".asp", true)
                 else
@@ -204,7 +95,7 @@ class appservicebase
         set tables = schemaservice.GetTables(empty)
         do while not tables.EOF
             if ArrayContains(p_Models, CStr(tables("Table_Name").Value)) then
-                table_name = LCase(tables("Table_Name").Value)
+                table_name = lcase(tables("Table_Name").Value)
                 if table_name <> "sysdiagrams" then
                     file.WriteLine "<!--#include virtual=""/resources/models/" & tables("Table_Name") & ".asp""-->"
                 end if
@@ -255,7 +146,7 @@ class appservicebase
         set tables = schemaservice.GetTables(empty)
         do while not tables.EOF
             if ArrayContains(p_Models, CStr(tables("Table_Name").Value)) then
-                table_name = LCase(tables("Table_Name").Value)
+                table_name = lcase(tables("Table_Name").Value)
                 if table_name <> "sysdiagrams" then
                     file.WriteLine "<!--#include virtual=""" & area_directory & "/controllers/" & lcase(tables("Table_Name")) & "controller.asp""-->"
                 end if
@@ -360,7 +251,7 @@ class appservicebase
         set tables = schemaservice.GetTables(empty)
         do while not tables.EOF
             if ArrayContains(p_Models, CStr(tables("Table_Name").Value)) then
-                table_name = LCase(tables("Table_Name").Value)
+                table_name = lcase(tables("Table_Name").Value)
                 if table_name <> "sysdiagrams" then
                     file.WriteLine "<!--#include virtual=""/repositories/" & tables("Table_Name") & "repository.asp""-->"
                 end if
@@ -375,7 +266,7 @@ class appservicebase
     
     'CreateFile
     private function CreateFile(p_FileName, p_URL)
-        p_FileName = LCase(p_FileName)
+        p_FileName = lcase(p_FileName)
         m_Logs.add p_FileName, p_URL
         set engine = new TemplateEngine
         engine.FileName = p_FileName

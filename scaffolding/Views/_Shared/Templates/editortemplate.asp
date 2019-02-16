@@ -12,11 +12,11 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
     </header>
     <div class="w3-container">
         <form method="post">
-            <% writer.Write("html.antiforgerytoken(antiforgery.securitytoken)") %><%=vblf %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><% writer.Enclose("with resources.localize(""" & table_name & """)") %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %><%=vblf %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=schemaservice.writehtmlform(columns, true) %><% end if %><% columns.MoveNext %><% loop %><%=vbcrlf %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><% writer.Enclose("end with") %><%=vblf %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><% writer.Write("Html.submit(""save"").hide") %>
+            <% writer.Write("html.antiforgerytoken(antiforgery.securitytoken)") %>
+            [ with resources.localize("<%=table_name %>") ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
+            [=<%=schemaservice.writehtmlform(columns, true) %> ]<% end if %><% columns.movenext %><% loop %>
+            [ end with ]
+            [=html.submit("save").hide ]
         </form>
     </div>
 </div>

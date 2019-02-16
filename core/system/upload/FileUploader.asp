@@ -443,13 +443,13 @@ class FileUploader
 		Else
 		
 			' convert name to lowercase
-			pstrName = LCase(pstrname)
+			pstrName = lcase(pstrname)
 			
 			' Loop through each field
 			For llngIndex = 0 To mlngCount - 1
 				
 				' If name matches current fields name in lowercase
-				If LCase(mobjFieldAry(llngIndex).Name) = pstrName Then
+				If lcase(mobjFieldAry(llngIndex).Name) = pstrName Then
 					
 					' Return Field Class
 					Set Fields = mobjFieldAry(llngIndex)

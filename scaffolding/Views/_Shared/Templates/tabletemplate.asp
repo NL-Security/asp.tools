@@ -3,7 +3,7 @@
 <%
 set schemaservice = (new schemaservicebase).connectjsonconfig(request.QueryString("project"))
 table_name = request.QueryString("table_name")
-set columns = schemaservice.GetColumns(table_name)
+set columns = schemaservice.GetColumns(table_name & "_liste")
 set primaryKey = schemaservice.GetPrimaryKey(table_name)
 set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 if request.QueryString("area") <> "" then
@@ -12,37 +12,36 @@ if request.QueryString("area") <> "" then
 end if
 %><table class="w3-table-all w3-hoverable">
     <thead>
-        <% writer.Enclose("with resources.localize(""" & LCase(table_name) & """)") %>
+        [ with resources.localize("<%=lcase(table_name) %>") ]
         <tr class="w3-theme">
-            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><th><% writer.Write("html.tableheader(""" & LCase(lcase(columns("Column_Name"))) & """).label(.item(""" & LCase(lcase(columns("Column_Name"))) & """))") %></th><%=vbenc %>end if<%=vbend %><%=vblf %><% end if %><% columns.MoveNext %><% loop %><% columns.MoveFirst %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
+            [ for each c in <%=pluralize(table_name) %>.columns ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
+            [ if c = "<%=lcase(columns("column_name")) %>" then ]<th>[=html.tableheader("<%=lcase(lcase(columns("column_name"))) %>").label(.item("<%=lcase(lcase(columns("column_name"))) %>")) ]</th>[ end if ]<% end if %><% columns.movenext %><% loop %><% columns.movefirst %>
+            [ next ]
             <th></th>
         </tr>
         <% writer.Enclose("end with") %>
         <tr class="w3-light-gray">
-            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><th><%=schemaservice.writehtmlform(columns, false) %></th><%=vbenc %>end if<%=vbend %><%=vblf %><% end if %><% columns.MoveNext %><% loop %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
+            [ for each c in <%=pluralize(table_name) %>.columns ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
+            [ if c = "<%=lcase(columns("column_name")) %>" then ]<th>[=<%=schemaservice.writehtmlform(columns, false) %> ]</th>[ end if ]<% end if %><% columns.movenext %><% loop %>
+            [ next ]
             <th>
-                <% writer.Write("html.hidden(""page"").value(http.querystring(""page""))") %><%=vblf %>
-                <%=vbtab %><%=vbtab %><%=vbtab %><%=vbtab %><% writer.Write("html.hidden(""order"").value(http.querystring(""order""))") %><%=vblf %>
-                <%=vbtab %><%=vbtab %><%=vbtab %><%=vbtab %><% writer.Write("html.submit(""search"").value(strings(""ok"")).css(""w3-theme"")") %>
+                [=html.hidden("page").value(http.querystring("page")) ]
+                [=html.hidden("order").value(http.querystring("order")) ]
+                [=html.submit("search").value(strings("ok")).css("w3-theme") ]
             </th>
         </tr>
     </thead>
-    <tbody>
-        <% columns.MoveFirst %>
-        <%=vbenc %>for i = 1 to <%=pluralize(table_name) %>.pagesize<%=vbend %><%=vblf %>
-        <%=vbtab %><%=vbtab %><%=vbenc %>if <%=pluralize(table_name) %>.eof then exit for<%=vbend %>
-        <tr <%=vbwr %><%=pluralize(table_name) %>.onrowclick<%=vbend %>>
-            <%=vbenc %>for each c in <%=pluralize(table_name) %>.columns<%=vbend %><%=vbcrlf %><% do while not columns.EOF %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>if c = "<%=lcase(columns("Column_Name")) %>" then<%=vbend %><td><% writer.Write(schemaservice.writehtmlbody(columns, Pluralize(table_name))) %></td><%=vbenc %>end if<%=vbend %><%=vbcrlf %><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
-            <%=vbtab %><%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
+    <tbody><% columns.movefirst %>
+        [ for i = 1 to <%=pluralize(table_name) %>.pagesize ]
+        [ if <%=pluralize(table_name) %>.eof then exit for ]
+        <tr [=<%=pluralize(table_name) %>.onrowclick ]>
+            [ for each c in <%=pluralize(table_name) %>.columns ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
+            [ if c = "<%=lcase(columns("column_name")) %>" then ]<td>[=<%=schemaservice.writehtmlbody(columns, pluralize(table_name)) %> ]</td>[ end if ]<% if foreignKeys.RecordCount > 0 then foreignKeys.movefirst %><% end if %><% columns.movenext %><% loop %>
+            [ next ]
             <td></td>
         </tr>
-        <%=vbenc %><%=pluralize(table_name) %>.movenext<%=vbend %><%=vblf %>
-        <%=vbtab %><%=vbtab %><%=vbenc %>next<%=vbend %>
+        [ <%=pluralize(table_name) %>.movenext ]
+        [ next ]
     </tbody>
 </table>
-<% writer.Enclose("html.tablefooter(" & Pluralize(table_name) & ")") %>
+<% writer.Enclose("html.tablefooter(" & pluralize(table_name) & ")") %>

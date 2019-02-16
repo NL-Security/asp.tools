@@ -8,7 +8,7 @@ if request.ServerVariables("request_method") = "POST" then
     if request.QueryString("area") <> "" then
         scaffolding_directory = scaffolding_directory & "\areas\" & request.QueryString("area")
     end if
-    scaffolding_directory = LCase(scaffolding_directory)
+    scaffolding_directory = lcase(scaffolding_directory)
     if request.Form("controllers") = "1" then
         appservice.CreateControllers scaffolding_directory, request.Form("models"), "View", true
         appservice.CreateControllersAssembly scaffolding_directory & "/", request.Form("models")
@@ -25,12 +25,8 @@ if request.ServerVariables("request_method") = "POST" then
     if request.Form("resources_assembly") = "1" then
         appservice.CreateResourcesAssembly session("project") & "/", request.Form("models")
     end if
-    if request.Form("repositories") = "1" then
-        appservice.CreateRepositories session("project") & "/", request.Form("models"), empty
-        appservice.CreateRepositoriesAssembly session("project") & "/", request.Form("models")
-    end if
-    if request.Form("navigation") = "1" then
-        appservice.CreateNavigationLinks session("project") & "/views/_shared", request.Form("models")
+    if request.Form("navigationlinks") = "1" then
+        appservice.CreateNavigationLinks scaffolding_directory & "/views/_shared", request.Form("models")
     end if
 end if
 views_path = session("project") & "\views\"
@@ -93,6 +89,12 @@ set tables = schemaservice.gettables(empty)
                         <td><span>Resources</span>
                             <i id="icon_Resources" class="fas fa-check-circle w3-margin-left w3-text-green w3-hide"></i>
                             <input type="checkbox" id="checkbox_Resources" name="resources" value="1" class="w3-hide" />
+                        </td>
+                    </tr>
+                    <tr class="table_name <% if request.Form("navigationlinks") = "1" then %>active<% end if %>" id="navigationlinks">
+                        <td><span>navigationlinks</span>
+                            <i id="icon_navigationlinks" class="fas fa-check-circle w3-margin-left w3-text-green w3-hide"></i>
+                            <input type="checkbox" id="checkbox_navigationlinks" name="navigationlinks" value="1" class="w3-hide" />
                         </td>
                     </tr>
                 </table>

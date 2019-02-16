@@ -9,7 +9,7 @@ class ASPString
     end function
 
     public function Lower()
-        m_Value = LCase(Mid(m_Value, 1, 1)) & Mid(m_Value, 2)
+        m_Value = lcase(Mid(m_Value, 1, 1)) & Mid(m_Value, 2)
         set Lower = me
     end function
 
@@ -18,15 +18,15 @@ class ASPString
         set Upper = me
     end function
 
-    public function Pluralize()
+    public function pluralize()
         if right(m_Value, 1) = "y" then
             m_Value = Left(m_Value, Len(m_Value) - 1) & "ie"
         elseif right(m_Value, 1) = "s" then
-            Pluralize = m_Value
+            pluralize = m_Value
             exit function
         end if
         m_Value = m_Value & "s"
-        set Pluralize = me
+        set pluralize = me
     end function
 
     public function ToString()

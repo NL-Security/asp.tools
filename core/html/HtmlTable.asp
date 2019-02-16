@@ -357,7 +357,7 @@ class htmltableColumn
 
     public function Header(p_ColumnName, p_Label)
         dim result
-        if LCase(m_Name) <> LCase(p_ColumnName) then exit function
+        if lcase(m_Name) <> lcase(p_ColumnName) then exit function
         result = result & "<th class=""" & GetDisplay() & """><a href=""" & URL() & """>" & p_Label
         if ArrayContains(request.QueryString("order"), p_ColumnName) then
             result = result & "<i class=""fa fa-arrow-down w3-margin-left""></i></a></th>"
@@ -380,7 +380,7 @@ class htmltableColumn
     end function
 
     public function Data(p_ColumnName, p_Value)
-        if LCase(m_Name) <> LCase(p_ColumnName) then exit function
+        if lcase(m_Name) <> lcase(p_ColumnName) then exit function
         dim result
         result = result & "<td class=""" & GetDisplay() & """>" & p_Value & "</td>"
         response.Write result

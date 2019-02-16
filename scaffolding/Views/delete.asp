@@ -8,9 +8,9 @@ set primaryKey = schemaservice.GetPrimaryKey(table_name)
 set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
 area_name = appservice.virtual_area(request.QueryString("area"))
 %>
-<%="<!--#include virtual=""startup.asp""-->" %><%=vblf %>
-<%=vbenc %>
+<%="<!--#include virtual=""startup.asp""-->" %>
+[
 view("title") = strings("<%=pluralize(table_name) %>")
-db.entity("<%=table_name %>").where("<%=lcase(primaryKey("COLUMN_NAME")) %> = " & http.querystring("<%=lcase(primaryKey("COLUMN_NAME")) %>")).delete
+db.entity("<%=table_name %>").where("<%=lcase(primaryKey("column_name")) %> = " & http.querystring("<%=lcase(primaryKey("column_name")) %>")).delete
 action "index"
-<%=vbend %>
+]

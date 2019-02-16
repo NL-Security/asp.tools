@@ -101,10 +101,10 @@ class schemaservicebase
             foreignKeys.MoveNext
         next
         if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst
-        if not IsEmpty(namingColumn) then
-            result = "format.text(" & lcase(p_Recordset) & "(""" & LCase(namingColumn) & """)" & ")"
+        if not IsEmpty(namingColumn) and false then
+            result = "format.text(" & lcase(p_Recordset) & "(""" & lcase(namingColumn) & """)" & ")"
         else
-            field_value = p_Recordset & "(""" & LCase(p_Columns("Column_Name")) & """)"
+            field_value = p_Recordset & "(""" & lcase(p_Columns("Column_Name")) & """)"
             select case p_Columns("DATA_TYPE")
                 case adCurrency
                     result = "format.price(" & field_value & ")"
@@ -138,8 +138,8 @@ class schemaservicebase
             foreignKeys.MoveNext
         next
         if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst
-        if not IsEmpty(column_name) then
-            result = "html.list(""" & foreignKeys("FK_COLUMN_NAME") & """).items(db.entity(""" & foreignKeys("PK_TABLE_NAME") & """).list).key(""" & foreignKeys("PK_COLUMN_NAME") & """).text(""" & column_name & """).first(2)"
+        if not IsEmpty(column_name) and false then
+            result = "html.list(""" & foreignKeys("FK_COLUMN_NAME") & """).items(db.entity(""" & foreignKeys("PK_TABLE_NAME") & """).list).key(""" & foreignKeys("PK_COLUMN_NAME") & """).text(""" & column_name & """).all"
         else
             column_name = lcase(columns("Column_Name"))
             select case p_Columns("DATA_TYPE")
@@ -171,9 +171,9 @@ class schemaservicebase
             end select
         end if
         if p_withlabel then
-            result = result & ".label(.item(" & column_name & ")).p"
+            result = result & ".label(.item(""" & column_name & """)).p"
         end if
-        writehtmlform = "<%=" & result & ".value(http.querystring(""" & column_name & """)) %" & ">"
+        writehtmlform = result & ".value(http.querystring(""" & column_name & """))"
     end function
 
 	sub class_terminate()

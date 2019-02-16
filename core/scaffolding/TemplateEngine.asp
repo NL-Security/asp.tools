@@ -19,6 +19,8 @@ class TemplateEngine
         xhttp.open "GET", p_URL, False
         xhttp.send
         fileContent = xhttp.responseText
+        filecontent = replace(filecontent, "[", "<%")
+        filecontent = replace(filecontent, "]", "%" & ">")
         set fileSystem = server.CreateObject("Scripting.FileSystemObject")
         if p_UriKind = 1 then
             set file = fileSystem.CreateTextFile(server.MapPath(m_FileName), true)

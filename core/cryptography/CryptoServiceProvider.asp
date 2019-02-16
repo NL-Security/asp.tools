@@ -18,7 +18,7 @@ class CryptoServiceProvider
         dim bytes, result
         bytes = GetBytes(p_Value)
         for i = 1 To LenB(bytes)
-            result = result & LCase(Right("0" & Hex(AscB(MidB(bytes, i, 1))), 2))
+            result = result & lcase(Right("0" & Hex(AscB(MidB(bytes, i, 1))), 2))
         next
         HashBytes = UCase(result)
     end function
