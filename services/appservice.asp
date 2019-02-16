@@ -176,7 +176,7 @@ class appservicebase
                 for each f in folder.Files
                     if ArrayContains(p_Templates, f.Name) or IsEmpty(p_Templates) then
                         m_FileManager.TryCreatePath p_Path & "\views\" & tables("table_name")
-                        CreateFile p_Path & "\views\" & tables("table_name") & "\" & f.Name, engine_URL & "/" & f.Name & "?table_name=" & tables("table_name") & "&project=" & session("project") & "&area=" & request.QueryString("area")
+                        CreateFile p_Path & "\views\" & tables("table_name") & "\" & f.Name, engine_URL & "/" & f.Name & "?table_name=" & tables("table_name") & "&project=" & session("project") & "&area=" & request.QueryString("area") & "&jointures=" & session("jointures")
                     end if
                 next
                 close folder
