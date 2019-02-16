@@ -2,9 +2,10 @@
 <!--#include virtual="/services/_assembly.asp"-->
 <!--#include virtual="/config.asp"-->
 <%
-server.ScriptTimeout = 3600
+server.scripttimeout = 3600
 response.codepage = 65001
 response.charset = "utf-8"
+set files = server.CreateObject("scripting.filesystemobject")
 if not isempty(session("project")) then
     set json = (new jsonreader).read(session("project") & "\config.json")
     with schemaservice

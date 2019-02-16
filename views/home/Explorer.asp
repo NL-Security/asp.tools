@@ -1,21 +1,16 @@
 ﻿<!--#include virtual="/startup.asp"-->
-<%
-set db = App.ApplicationServices.GetService("IDb")
-%>
 <!--#include virtual="/views/_shared/header.asp"-->
-<div class="w3-container w3-padding">
-    <% set tables = db.GetModels(empty) %>
+<div class="w3-row">
+    <% set tables = schemaservice.GetModels(empty) %>
     <% do while not tables.EOF %>
-    <div class="w3-row">
-        <div class="w3-col m12">
-            <h5><%=tables("Table_Name").Value %></h5>
-        </div>
-    </div>
-    <div class="w3-row">
-        <div class="w3-col m9 w3-padding">
-            <% set columns = db.GetColumns(tables("Table_Name").Value) %>
+    <div class="w3-col m12 w3-margin-bottom">
+        <header class="w3-container">
+            <p class="w3-text-red"><%=lcase(tables("Table_Name").Value) %></p>
+        </header>
+        <div class="w3-col m9" style="padding: 0!important">
+            <% set columns = schemaservice.GetColumns(tables("Table_Name").Value) %>
             <table class="w3-table w3-bordered w3-card-4">
-                <tr class="w3-black">
+                <tr class="w3-primary">
                     <th>Name</th>
                     <th>GUID</th>
                     <th>Datatype</th>
@@ -30,7 +25,7 @@ set db = App.ApplicationServices.GetService("IDb")
                 </tr>
                 <% do while not columns.EOF %>
                 <tr>
-                    <td><%=columns("Column_Name") %></td>
+                    <td><%=lcase(columns("Column_Name")) %></td>
                     <td><%=columns("Column_Guid") %></td>
                     <td><%=columns("Data_Type") %></td>
                     <td><%=columns("Character_Maximum_Length") %></td>
@@ -47,32 +42,32 @@ set db = App.ApplicationServices.GetService("IDb")
                 <% set columns = nothing %>
             </table>
         </div>
-        <div class="w3-col m3 w3-padding">
+        <div class="w3-col m3" style="padding: 0!important">
             <table class="w3-table w3-bordered w3-card-4">
-                <% set foreignKeys = db.GetForeignKeys(tables("Table_Name").Value, "FK") %>
+                <% set foreignKeys = schemaservice.GetForeignKeys(tables("Table_Name").Value, "FK") %>
                 <% if foreignKeys.RecordCount > 0 then %>
-                <tr class="w3-black">
-                    <td colspan="2">Objects dont depend <%=tables("Table_Name").Value %></td>
+                <tr class="w3-primary">
+                    <th colspan="2">Objects dont depend <%=tables("Table_Name").Value %></th>
                 </tr>
                 <% end if %>
                 <% do while not foreignKeys.EOF %>
                 <tr>
-                    <td><%=foreignKeys("PK_TABLE_NAME") %></td>
-                    <td><%=foreignKeys("FK_COLUMN_NAME") %></td>
+                    <td><%=lcase(foreignKeys("PK_TABLE_NAME")) %></td>
+                    <td><%=lcase(foreignKeys("FK_COLUMN_NAME")) %></td>
                 </tr>
                 <% foreignKeys.MoveNext %>
                 <% Loop %>
                 <% set foreignKeys = Nothing %>
-                <% set foreignKeys = db.GetForeignKeys(tables("Table_Name").Value, "PK") %>
+                <% set foreignKeys = schemaservice.GetForeignKeys(tables("Table_Name").Value, "PK") %>
                 <% if foreignKeys.RecordCount > 0 then %>
-                <tr class="w3-black">
-                    <td colspan="2">Objects dependants de <%=tables("Table_Name").Value %></td>
+                <tr class="w3-primary">
+                    <th colspan="2">Objects dependants de <%=tables("Table_Name").Value %></th>
                 </tr>
                 <% end if %>
                 <% do while not foreignKeys.EOF %>
                 <tr>
-                    <td><%=foreignKeys("FK_TABLE_NAME") %></td>
-                    <td><%=foreignKeys("FK_COLUMN_NAME") %></td>
+                    <td><%=lcase(foreignKeys("FK_TABLE_NAME")) %></td>
+                    <td><%=lcase(foreignKeys("FK_COLUMN_NAME")) %></td>
                 </tr>
                 <% foreignKeys.MoveNext %>
                 <% loop %>

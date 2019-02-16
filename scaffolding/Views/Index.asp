@@ -26,7 +26,7 @@ view("title") = strings("<%=pluralize(table_name) %>")
             with <%=pluralize(table_name) %>
                 .id = "<%=pluralize(table_name) %>"
                 .records = db.entity("<%=table_name %>").find(http.querystrings).pagedlist
-                .rowclick = "/<%=request.QueryString("area") %>/<%=table_name %>/details?<%=lcase(primaryKey("COLUMN_NAME")) %>={<%=lcase(primaryKey("COLUMN_NAME")) %>}"<% do while not columns.eof %>                
+                .rowhref = "/<%=request.QueryString("area") %>/<%=table_name %>/details?<%=lcase(primaryKey("COLUMN_NAME")) %>={<%=lcase(primaryKey("COLUMN_NAME")) %>}"<% do while not columns.eof %>                
                 .col("<%=lcase(columns("column_name")) %>")<% columns.movenext %><% loop %>
                 .build
             end with

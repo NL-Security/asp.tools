@@ -33,7 +33,6 @@ if request.ServerVariables("request_method") = "POST" then
         appservice.CreateNavigationLinks session("project") & "/views/_shared", request.Form("models")
     end if
 end if
-set files = server.CreateObject("scripting.filesystemobject")
 views_path = session("project") & "\views\"
 if request.QueryString("area") <> "" then
     views_path = session("project") & "\Areas\" & request.QueryString("area") & "\views\"

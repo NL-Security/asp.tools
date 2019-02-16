@@ -13,7 +13,7 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
         <p><%=vbwr %>strings("general")<%=vbend %></p>
     </header>
     <div class="w3-container"><% do while not columns.eof %><% if lcase(primaryKey("COLUMN_NAME")) <> lcase(columns("Column_Name")) then %><%=vblf %>
-        <%=vbtab %><%=vbtab %><% writer.Write("html.var(" & schemaservice.writehtmlbody(columns, table_name)) & ").label(.item(""" & lcase(columns("Column_Name")) & """).p" %><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
+        <%=vbtab %><%=vbtab %><% writer.Write("html.var(" & schemaservice.writehtmlbody(columns, table_name)) & ").label(.item(""" & lcase(columns("Column_Name")) & """)).p" %><% if foreignKeys.RecordCount > 0 then foreignKeys.MoveFirst %><% end if %><% columns.MoveNext %><% loop %>
     </div>
 </div>
 <%=vbenc %>end with<%=vbend %>

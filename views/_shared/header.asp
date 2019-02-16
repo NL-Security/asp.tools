@@ -26,15 +26,15 @@
         <br />
         <div class="w3-bar-block">
             <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Fermer"><i class="fa fa-remove fa-fw"></i>Fermer</a>
-            <a href="/home/project" class="w3-bar-item w3-btn <% if http.route.route = "Home/Index" then %>w3-black<% end if %>">Project</a>
-            <% if files.FolderExists(session("project") & "/areas") then %>
+            <a href="/home/project" class="w3-bar-item w3-btn <% if http.route.route = "Home/Index" then %>w3-black<% end if %>">root</a>
+            <% if files.folderExists(session("project") & "/areas") then %>
             <% set folder = files.GetFolder(session("project") & "/areas") %>
             <% for each subfolder in folder.SubFolders %>
             <a href="/home/project?area=<%=subfolder.Name %>" class="w3-bar-item w3-btn"><%=subfolder.Name %></a>
             <% next %>
             <% close folder %>
             <% end if %>
-            <a href="/Schema/Explorer" class="w3-bar-item w3-btn <% if http.route.route = "home/schema" then %>w3-black<% end if %>">Schema</a>
+            <a href="/home/explorer" class="w3-bar-item w3-btn <% if http.route.route = "home/schema" then %>w3-black<% end if %>">Schema</a>
         </div>
         <% end if %>
     </nav>
