@@ -30,7 +30,7 @@ end if
             <% columns.movefirst %>
             <% writer.Enclose("do while not " & pluralize(table_name) & ".eof") %>
             <tr onclick="location.href='<%=requested_area %>/<%=table_name %>/details?<%=lcase(primaryKey("column_name")) %>=[=<%=pluralize(table_name) %>("<%=lcase(primaryKey("column_name")) %>") ]'"><% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
-                <td>[ <%=schemaservice.writehtmlbody(columns, pluralize(table_name)) %> ]</td><% if foreignKeys.RecordCount > 0 then foreignKeys.movefirst %><% end if %><% columns.movenext %><% loop %>
+                <td>[=<%=schemaservice.writehtmlbody(columns, pluralize(table_name)) %> ]</td><% if foreignKeys.RecordCount > 0 then foreignKeys.movefirst %><% end if %><% columns.movenext %><% loop %>
                 <td></td>
             </tr>
             [ <%=pluralize(table_name) %>.movenext ]

@@ -3,8 +3,9 @@
 <%
 set schemaservice = (new schemaservicebase).connectjsonconfig(request.QueryString("project"))
 table_name = request.QueryString("table_name")
-if session("jointures") = 0 then
-    model_name & "_liste"
+model_name = table_name
+if request.QueryString("jointures") = "0" then
+    model_name = model_name & "_liste"
 end if
 set columns = schemaservice.GetColumns(model_name)
 set primaryKey = schemaservice.GetPrimaryKey(table_name)
@@ -25,7 +26,7 @@ end if
         <% writer.Enclose("end with") %>
         <tr class="w3-light-gray">
             [ for each c in <%=pluralize(table_name) %>.columns ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
-            [ if c = "<%=lcase(columns("column_name")) %>" then ]<th>[=<%=schemaservice.writehtmlform(columns, false) %> ]</th>[ end if ]<% end if %><% columns.movenext %><% loop %>
+            [ if c = "<%=lcase(columns("column_name")) %>" then ]<th>[=<%=schemaservice.writehtmlform(columns, false, "http.querystring") %> ]</th>[ end if ]<% end if %><% columns.movenext %><% loop %>
             [ next ]
             <th>
                 [=html.hidden("page").value(http.querystring("page")) ]

@@ -122,7 +122,7 @@ class schemaservicebase
     end function
 
     'writehtmlform
-    function writehtmlform(p_Columns, p_withlabel)
+    function writehtmlform(p_Columns, p_withlabel, p_modeltype_name)
         dim result, column_name
         column_name = empty
         for i = 0 to foreignKeys.RecordCount - 1
@@ -173,7 +173,7 @@ class schemaservicebase
         if p_withlabel then
             result = result & ".label(.item(""" & column_name & """)).p"
         end if
-        writehtmlform = result & ".value(http.querystring(""" & column_name & """))"
+        writehtmlform = result & ".value(" & p_modeltype_name & "(""" & column_name & """))"
     end function
 
 	sub class_terminate()

@@ -14,7 +14,7 @@ set foreignKeys = schemaservice.GetForeignKeys(table_name, "FK")
         <form method="post">
             <% writer.Write("html.antiforgerytoken(antiforgery.securitytoken)") %>
             [ with resources.localize("<%=table_name %>") ]<% do while not columns.eof %><% if lcase(primaryKey("column_name")) <> lcase(columns("column_name")) then %>
-            [=<%=schemaservice.writehtmlform(columns, true) %> ]<% end if %><% columns.movenext %><% loop %>
+            [=<%=schemaservice.writehtmlform(columns, true, table_name) %> ]<% end if %><% columns.movenext %><% loop %>
             [ end with ]
             [=html.submit("save").hide ]
         </form>

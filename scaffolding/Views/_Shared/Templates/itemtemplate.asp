@@ -3,8 +3,9 @@
 <%
 set schemaservice = (new schemaservicebase).connectjsonconfig(request.QueryString("project"))
 table_name = request.QueryString("table_name")
-if session("jointures") = 0 then
-    model_name & "_details"
+model_name = table_name
+if request.QueryString("jointures") = "0" then
+    model_name = model_name & "_details"
 end if
 set columns = schemaservice.GetColumns(model_name)
 set primaryKey = schemaservice.GetPrimaryKey(table_name)

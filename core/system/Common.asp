@@ -26,13 +26,15 @@ public function vbwr() vbwr = "<%=" end function
 %>
 <%
 public function pluralize(p_value)
-    if right(p_Value, 1) = "y" then
-        p_Value = Left(p_value, Len(p_Value) - 1) & "ie"
-    elseif right(p_Value, 1) = "s" then
-        pluralize = p_Value
+    dim val
+    val = p_value
+    if right(val, 1) = "y" then
+        val = Left(p_value, Len(p_Value) - 1) & "ie"
+    elseif right(val, 1) = "s" then
+        pluralize = val
         exit function
     end if
-    pluralize = p_value & "s"
+    pluralize = val & "s"
 end function
 function ConvertToList(p_data)
     set result = server.CreateObject("system.collections.arraylist")
